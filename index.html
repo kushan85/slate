@@ -201,7 +201,7 @@
       <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;python&quot;,&quot;javascript&quot;]">
+  <body class="index" data-languages="[&quot;json&quot;,&quot;xml&quot;,&quot;http&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -211,10 +211,9 @@
     <div class="toc-wrapper">
       <img src="images/logo.png" class="logo" alt="Logo" />
         <div class="lang-selector">
-              <a href="#" data-language-name="shell">shell</a>
-              <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="python">python</a>
-              <a href="#" data-language-name="javascript">javascript</a>
+              <a href="#" data-language-name="json">json</a>
+              <a href="#" data-language-name="xml">xml</a>
+              <a href="#" data-language-name="http">http</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -228,10 +227,10 @@
             <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
           </li>
           <li>
-            <a href="#kittens" class="toc-h1 toc-link" data-title="Kittens">Kittens</a>
+            <a href="#feeds" class="toc-h1 toc-link" data-title="Feeds">Feeds</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#get-all-kittens" class="toc-h2 toc-link" data-title="Get All Kittens">Get All Kittens</a>
+                    <a href="#get-feed-status" class="toc-h2 toc-link" data-title="Get Feed Status">Get Feed Status</a>
                   </li>
                   <li>
                     <a href="#get-a-specific-kitten" class="toc-h2 toc-link" data-title="Get a Specific Kitten">Get a Specific Kitten</a>
@@ -290,25 +289,12 @@ Before you start using Marketplace APIs, you need to:</p>
 <blockquote>
 <p>Header Sample</p>
 </blockquote>
-<pre class="highlight ruby tab-ruby"><code><span class="no">Authorization</span><span class="p">:</span> <span class="no">Basic</span> <span class="no">Base64Encode</span><span class="p">(</span><span class="n">clientId</span><span class="ss">:clientSecret</span><span class="p">)</span>
-<span class="no">WM_SVC</span><span class="o">.</span><span class="no">NAME</span><span class="p">:</span> <span class="no">Walmart</span> <span class="no">Marketplace</span>
-<span class="no">WM_SEC</span><span class="o">.</span><span class="no">ACCESS_TOKEN</span><span class="p">:</span> <span class="n">eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM</span><span class="p">.</span><span class="nf">.</span><span class="p">.</span><span class="nf">.</span><span class="o">.</span>
-<span class="no">WM_QOS</span><span class="o">.</span><span class="no">CORRELATION_ID</span><span class="p">:</span> <span class="mi">123456</span><span class="n">abcdef</span>
-<span class="no">Host</span><span class="p">:</span> <span class="n">https</span><span class="ss">:/</span><span class="o">/</span><span class="n">marketplace</span><span class="p">.</span><span class="nf">walmartapis</span><span class="p">.</span><span class="nf">com</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-</code></pre>
-<blockquote>
-<p>Make sure to replace <code>meowmeowmeow</code> with your API key.</p>
-</blockquote>
-
+<pre class="highlight http tab-http"><code><span class="err">Authorization: Basic Base64Encode(clientId:clientSecret)
+WM_SVC.NAME: Walmart Marketplace
+WM_SEC.ACCESS_TOKEN: eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....
+WM_QOS.CORRELATION_ID: 123456abcdef
+Host: https://marketplace.walmartapis.com
+</span></code></pre>
 <p>Token-based authentication (New preferred method)
 The Walmart Marketplace APIs use OAuth for token-based authentication and authorization. All partners should move to use this method. The benefits of using of token-based authentication include:</p>
 
@@ -318,47 +304,46 @@ The Walmart Marketplace APIs use OAuth for token-based authentication and author
 <li>Easier integration with Walmart APIs</li>
 <li>Reduced number of headers per API call</li>
 </ul>
-
-<p><code>Authorization: meowmeowmeow</code></p>
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-<h1 id='kittens'>Kittens</h1><h2 id='get-all-kittens'>Get All Kittens</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">kittens</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="nx">get</span><span class="p">();</span>
-</code></pre>
+<h1 id='feeds'>Feeds</h1><h2 id='get-feed-status'>Get Feed Status</h2>
 <blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p>The above command returns XML structured like this:</p>
 </blockquote>
-<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre>
+<pre class="highlight xml tab-xml"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="nt">&lt;PartnerFeedResponse</span> <span class="na">xmlns:ns2=</span><span class="s">"http://walmart.com/"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;feedId&gt;</span>1c349f8f-aec0-411f-8454-ead47d12946f<span class="nt">&lt;/feedId&gt;</span>
+  <span class="nt">&lt;feedStatus&gt;</span>PROCESSED<span class="nt">&lt;/feedStatus&gt;</span>
+  <span class="nt">&lt;ingestionErrors</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;itemsReceived&gt;</span>11<span class="nt">&lt;/itemsReceived&gt;</span>
+  <span class="nt">&lt;itemsSucceeded&gt;</span>11<span class="nt">&lt;/itemsSucceeded&gt;</span>
+  <span class="nt">&lt;itemsFailed&gt;</span>0<span class="nt">&lt;/itemsFailed&gt;</span>
+  <span class="nt">&lt;itemsProcessing&gt;</span>0<span class="nt">&lt;/itemsProcessing&gt;</span>
+  <span class="nt">&lt;offset&gt;</span>0<span class="nt">&lt;/offset&gt;</span>
+  <span class="nt">&lt;limit&gt;</span>0<span class="nt">&lt;/limit&gt;</span>
+  <span class="nt">&lt;itemDetails&gt;</span>
+    <span class="nt">&lt;itemIngestionStatus&gt;</span>
+      <span class="nt">&lt;martId&gt;</span>0<span class="nt">&lt;/martId&gt;</span>
+      <span class="nt">&lt;sku&gt;</span>sku1<span class="nt">&lt;/sku&gt;</span>
+      <span class="nt">&lt;index&gt;</span>8<span class="nt">&lt;/index&gt;</span>
+      <span class="nt">&lt;ingestionStatus&gt;</span>SUCCESS<span class="nt">&lt;/ingestionStatus&gt;</span>
+      <span class="nt">&lt;ingestionErrors</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/itemIngestionStatus&gt;</span>
+    <span class="nt">&lt;itemIngestionStatus&gt;</span>
+      <span class="nt">&lt;martId&gt;</span>0<span class="nt">&lt;/martId&gt;</span>
+      <span class="nt">&lt;sku&gt;</span>sku2<span class="nt">&lt;/sku&gt;</span>
+      <span class="nt">&lt;index&gt;</span>6<span class="nt">&lt;/index&gt;</span>
+      <span class="nt">&lt;ingestionStatus&gt;</span>SUCCESS<span class="nt">&lt;/ingestionStatus&gt;</span>
+      <span class="nt">&lt;ingestionErrors</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/itemIngestionStatus&gt;</span>
+    <span class="nt">&lt;itemIngestionStatus&gt;</span>
+      <span class="nt">&lt;martId&gt;</span>0<span class="nt">&lt;/martId&gt;</span>
+      <span class="nt">&lt;sku&gt;</span>sku3<span class="nt">&lt;/sku&gt;</span>
+      <span class="nt">&lt;index&gt;</span>9<span class="nt">&lt;/index&gt;</span>
+      <span class="nt">&lt;ingestionStatus&gt;</span>SUCCESS<span class="nt">&lt;/ingestionStatus&gt;</span>
+      <span class="nt">&lt;ingestionErrors</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/itemIngestionStatus&gt;</span>
+  <span class="nt">&lt;/itemDetails&gt;</span>
+<span class="nt">&lt;/PartnerFeedResponse&gt;</span>
+</code></pre>
 <p>This endpoint retrieves all kittens.</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>GET http://example.com/api/kittens</code></p>
@@ -529,10 +514,9 @@ This error section is stored in a separate file in <code>includes/_errors.md</co
       </div>
       <div class="dark-box">
           <div class="lang-selector">
-                <a href="#" data-language-name="shell">shell</a>
-                <a href="#" data-language-name="ruby">ruby</a>
-                <a href="#" data-language-name="python">python</a>
-                <a href="#" data-language-name="javascript">javascript</a>
+                <a href="#" data-language-name="json">json</a>
+                <a href="#" data-language-name="xml">xml</a>
+                <a href="#" data-language-name="http">http</a>
           </div>
       </div>
     </div>
