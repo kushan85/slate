@@ -303,7 +303,37 @@ The Walmart Marketplace APIs use OAuth for token-based authentication and author
 <li>Easier integration with Walmart APIs</li>
 <li>Reduced number of headers per API call</li>
 </ul>
-<h1 id='feeds'>Feeds</h1><h2 id='get-feed-status'>Get Feed Status</h2>
+<h1 id='feeds'>Feeds</h1>
+<p>Feeds are constructed to handle bulk functions. A feed consists of an HTTP request with an attached file. The attached file contains the XML representing the objects that need to be created or updated.</p>
+
+<p>The Walmart APIs version 3.0 supports only Item and Feed types. Refer to the bulk endpoints in each section to see example Feeds for each feed type.</p>
+
+<p>Once you upload the Feeds, you can use the Feed ID to track the status of the feeds and the status of the item within those Feeds</p>
+
+<p>Feed Statuses
+A Feed can have one of the following statuses:</p>
+
+<ul>
+<li>RECEIVED: The feed has been received by the Walmart gateway but the (asynchronous) processing has not yet started.</li>
+<li>INPROGRESS: The element processing in the feed has begun and is not yet completed.</li>
+<li>PROCESSED: The element processing in the feed is complete. Nothing is implied about the status of the individual elements.</li>
+<li>ERROR: The feed, as a whole, has failed. No elements within the feed were processed.</li>
+</ul>
+
+<p>Recommended Calling Interval
+If a request returns a Feed status of INPROGRESS, you should continue calling until a different status is retrieved. The recommended calling intervals for Item is 15 minutes, 1 hour, 2 hours and every 4 hours.</p>
+
+<p>Ingestion Statuses
+The ingestion statuses are set at a per-object level.</p>
+
+<ul>
+<li>DATA_ERROR:This error means that there is either a malformed XML error or some system data is missing. If the XML passes validation against the relevant XSD, and the error persists, contact Walmart Partner Support.</li>
+<li>SYSTEM_ERROR: This error is returned when a downstream Walmart system returns an error to an attempted operation during submission. If this error occurs, wait for at least an hour and then try again. If the error persists contact Walmart Partner Support.</li>
+<li>TIMEOUT_ERROR: This error is returned when a downstream Walmart system is not available during ingestion. If this error occurs, wait for at least an hour and try again. If the error persists, contact Partner Support.</li>
+<li>SUCCESS: The object has successfully been ingested.</li>
+<li>INPROGRESS: The item ingestion has not been completed.</li>
+</ul>
+<h2 id='get-feed-status'>Get Feed Status</h2>
 <blockquote>
 <p>The above command returns XML structured like this:</p>
 </blockquote>
