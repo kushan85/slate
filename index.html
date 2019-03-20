@@ -343,9 +343,11 @@ The Walmart Marketplace APIs use OAuth for token-based authentication and author
   <span class="nt">&lt;/itemDetails&gt;</span>
 <span class="nt">&lt;/PartnerFeedResponse&gt;</span>
 </code></pre>
-<p>This endpoint retrieves all kittens.</p>
+<p>This API returns the feed status for a specified Feed ID.</p>
+
+<p>We recommend not to use this call with the includeDetails set to true, as discrepancies may appear between the header and the item details (the item details may be incorrect). Instead, use the call GET Feed Item Status.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>GET https://marketplace.walmartapis.com/v3/feeds/&lt;feedId&gt;?includeDetails={includeDetails}&amp;limit={limit}&amp;offset={offset}</code></p>
+<p><code>GET https://marketplace.walmartapis.com/v3/feeds/&lt;feedId&gt;</code></p>
 <h3 id='query-parameters'>Query Parameters</h3>
 <table><thead>
 <tr>
