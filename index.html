@@ -253,11 +253,39 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
+<p>The Walmart Marketplace APIs help Sellers generate applications for managing their items, orders, prices, promotions, inventory and reports on Walmart.com.</p>
 
-<p>We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+<p>The Walmart Developer Center provides all the information Sellers need to directly integrate with the Walmart Marketplace APIs. To use the Marketplace APIs, you need to upload the XML or Excel file that contains information about your request. You can upload the Excel file from Seller Center or extract the XML file from the XSD.</p>
 
-<p>This example API documentation page was created with <a href="https://github.com/lord/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&#39;s documentation.</p>
+<p>For Sellers and Partners looking for help with other items, go to SellerHelp Walmart. This Knowledge Base helps Partners and Sellers with a wide variety of topics ranging from Variant Setup to Swatches.</p>
+
+<p>Each XML file may contain the namespace and other parameters. The real value of the namespace could be wm, ns2, ns3 or any other random value and the XML structure should be compliant with the XSDs schema.</p>
+
+<p>The actual specification of the XML format is defined in the XSD files, which you can download from the respective API documentation sections. We have included a few examples of the relevant XMLs for each of our APIs. The general structure of the responses can be found in the examples on the right panel.</p>
+
+<p>Walmart validates XML requests against the XSDs prior to processing. Validate your Feeds before sending them to Walmart.
+Requests that do not validate successfully will return a parsing error in Response, either in the Feed status or in the Item status:</p>
+
+<ol>
+<li>If the Feed is not valid, the feedStatus will show the &quot;ERROR&quot;.</li>
+<li>If an Item is not valid, ingestionStatus will show the &quot;DATA ERROR&quot;.</li>
+</ol>
+
+<p>There are third-party tools available that are designed specifically for XML validation (debugging). You can find these tools by searching &quot;XML Validator&quot;.</p>
+
+<p>The Walmart APIs are case-sensitive; this applies to the URLs, elements and parameters.</p>
+
+<p>The supported character set is UTF-8. Only use this character set or subsets thereof. </p>
+
+<p>Before Getting Started
+Before you start using Marketplace APIs, you need to:</p>
+
+<ol>
+<li>Go to SellerHelp Walmart.</li>
+<li>Scroll to Browse Guides by Topics.</li>
+<li>Click on Getting Started to know the the onboaring and resigtration steps.</li>
+<li>Make sure you have been approved to sell your items on Walmart Marketplace.</li>
+</ol>
 <h1 id='authentication'>Authentication</h1>
 <blockquote>
 <p>To authorize, use this code:</p>
