@@ -288,11 +288,13 @@ Before you start using Marketplace APIs, you need to:</p>
 </ol>
 <h1 id='authentication'>Authentication</h1>
 <blockquote>
-<p>To authorize, use this code:</p>
+<p>Header Sample</p>
 </blockquote>
-<pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
+<pre class="highlight ruby tab-ruby"><code><span class="no">Authorization</span><span class="p">:</span> <span class="no">Basic</span> <span class="no">Base64Encode</span><span class="p">(</span><span class="n">clientId</span><span class="ss">:clientSecret</span><span class="p">)</span>
+<span class="no">WM_SVC</span><span class="o">.</span><span class="no">NAME</span><span class="p">:</span> <span class="no">Walmart</span> <span class="no">Marketplace</span>
+<span class="no">WM_SEC</span><span class="o">.</span><span class="no">ACCESS_TOKEN</span><span class="p">:</span> <span class="n">eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM</span><span class="p">.</span><span class="nf">.</span><span class="p">.</span><span class="nf">.</span><span class="o">.</span>
+<span class="no">WM_QOS</span><span class="o">.</span><span class="no">CORRELATION_ID</span><span class="p">:</span> <span class="mi">123456</span><span class="n">abcdef</span>
+<span class="no">Host</span><span class="p">:</span> <span class="n">https</span><span class="ss">:/</span><span class="o">/</span><span class="n">marketplace</span><span class="p">.</span><span class="nf">walmartapis</span><span class="p">.</span><span class="nf">com</span>
 </code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
 
 <span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
@@ -307,9 +309,15 @@ curl <span class="s2">"api_endpoint_here"</span>
 <p>Make sure to replace <code>meowmeowmeow</code> with your API key.</p>
 </blockquote>
 
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
+<p>Token-based authentication (New preferred method)
+The Walmart Marketplace APIs use OAuth for token-based authentication and authorization. All partners should move to use this method. The benefits of using of token-based authentication include:</p>
 
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
+<ul>
+<li>Current standards for API Authentication</li>
+<li>Reduced overhead of creating and signing the digital signature</li>
+<li>Easier integration with Walmart APIs</li>
+<li>Reduced number of headers per API call</li>
+</ul>
 
 <p><code>Authorization: meowmeowmeow</code></p>
 
